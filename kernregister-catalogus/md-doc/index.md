@@ -28,6 +28,9 @@ Klik links in het navigatiemenu op ['OTL-concepten (alfabetisch)'](otl-list.html
 ## BOM-R-elementen
 Klik links in het navigatiemenu op ['BOM-R-elementen (alfabetisch)'](bomr-list.html) om een alfabetisch overzicht van BOM-R-elementen te zien.
 
+## UTD-concepten
+['UTD-concepten'](utd-list.html)
+
 ## Kernregistraties
 Klik links in het navigatiemenu op ['Kernregistraties'](kr-list.html) om een overzicht van Kernregistraties te zien.
 

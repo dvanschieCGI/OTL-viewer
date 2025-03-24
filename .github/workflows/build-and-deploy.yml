@@ -24,6 +24,8 @@ jobs:
         run: python3 bin/parse-mappings.py airbim-mappingrule-generator/mappingregels mapping.json
       - name: Generate documentation
         run: python3 bin/write-documentation.py .
+      - name: Generate UTD
+        run: python3 bin/write-utd.py .
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build Pages
