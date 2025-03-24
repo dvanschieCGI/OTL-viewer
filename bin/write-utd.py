@@ -72,8 +72,8 @@ def main():
 
         table_head = """
             <tr>
-                <th>Resource</th>
-                <th>Broader Transitive</th>
+                <th>Item</th>
+                <th>Waarde</th>
             </tr>
         """
 
@@ -82,7 +82,8 @@ def main():
             
             md_otl_list.write("<table>")
             md_otl_list.write(table_head)
-            md_otl_list.write(f"<tr><td>{concept['resource']}</td><td>{concept['broader']}</td></tr>")
+            md_otl_list.write(f"<tr><td>Resource</td><td>{concept['resource']}</td></tr>")
+            md_otl_list.write(f"<tr><td>Broader Transitive</td><td>{concept['broader']}</td></tr>")
             md_otl_list.write("</table>")
 
 
