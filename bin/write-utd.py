@@ -70,20 +70,15 @@ def main():
             "\n## Introductie\nDeze pagina bevat een overzicht van alle UTD-concepten."
         )
 
-        table_head = """
-            <tr>
-                <th>Item</th>
-                <th>Waarde</th>
-            </tr>
-        """
+        table_head = "<tr> \n <th>Item</th> \n <th>Waarde</th> \n </tr>\n"
 
         for concept in utd_concepts:
-            md_otl_list.write(f"<h2>{concept['label']}</h2>")
+            md_otl_list.write(f"\n<h2>{concept['label']}</h2>\n")
             
-            md_otl_list.write("<table>")
+            md_otl_list.write("<table>\n")
             md_otl_list.write(table_head)
-            md_otl_list.write(f"<tr><td>Resource</td><td>{concept['resource']}</td></tr>")
-            md_otl_list.write(f"<tr><td>Broader Transitive</td><td>{concept['broader']}</td></tr>")
+            md_otl_list.write(f"<tr>\n<td>Resource</td>\n<td>{concept['resource']}</td>\n</tr>\n")
+            md_otl_list.write(f"<tr>\n<td>Broader Transitive</td>\n<td>{concept['broader']}</td>\n</tr>\n")
             md_otl_list.write("</table>")
 
 
