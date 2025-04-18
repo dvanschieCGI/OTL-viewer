@@ -8,7 +8,7 @@ import time
 import argparse
 import os
 import json
-
+import sys
 
 def main():
     """
@@ -36,6 +36,8 @@ def main():
     else:
         files = [
             f'{args["root"]}/ontology/def/otl/graaf-kennismodel.trig',
+            f'{args["root"]}/ontology/def/linksets33.1/graaf-otl-utd-linkset.trig',
+            f'{args["root"]}/ontology/def/utd/graaf-kennismodel-utd.trig',
             f'{args["root"]}/ontology/def/otl/graaf-informatiemodel.trig',
             f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataservice.trig',
             f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataset.trig',
@@ -98,6 +100,39 @@ def main():
             distinct_initials = distinct_initials + initial
             prev_initial = initial
     print("Initials: " + distinct_initials)
+
+    otl_utd_linkset_query = """
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?otl_concept (GROUP_CONCAT(STR(?utd_concept); separator=";") AS ?utd_concepts) (GROUP_CONCAT(STR(?label); separator=";") AS ?utd_labels)
+        WHERE {
+            GRAPH <https://data.rws.nl/def/otl/graaf-otl-utd-linkset> {
+                ?otl_concept dct:conformsTo ?utd_concept .
+            }
+            OPTIONAL {
+                GRAPH <https://data.rws.nl/def/utd/graaf-kennismodel> {
+                ?utd_concept skos:prefLabel ?label
+                }
+            }
+        }
+    GROUP BY ?otl_concept
+    """
+
+    otl_utd_linkset = []
+
+    for row in ds.query(otl_utd_linkset_query):
+        utd_raw = row["utd_concepts"]
+        utd_concepts = [uri.strip() for uri in utd_raw.split(";")] if utd_raw else []
+
+        utd_labels_raw = row["utd_labels"]
+        utd_labels = [uri.strip() for uri in utd_labels_raw.split(";")] if utd_labels_raw else []
+
+        otl_utd_linkset.append({
+            "otl_concept": row["otl_concept"],
+            "utd_concepts": utd_concepts,
+            "utd_labels": utd_labels
+        })
+
 
     print("... Attributes")
     patroon_query = """
@@ -368,6 +403,24 @@ def main():
                     section = section + table_data
                     if row_data != "":
                         md_section += f"### Kenmerken\n{table_data}\n"
+
+                    # If the OTL concept is linked to one or more UTD concepts, add the UTD concepts to a table.
+                    row_data = ""
+                    for otl_utd_link in otl_utd_linkset:
+                        if otl_utd_link["otl_concept"] == entry['resource']:
+                            for i, utd_concept in enumerate(otl_utd_link["utd_concepts"]):
+                                utd_row_data = wrap_td(utd_concept)
+                                utd_row_data += wrap_td(otl_utd_link["utd_labels"][i])
+                                row_data += wrap_tr(utd_row_data)
+
+                    if row_data != "":
+                        header = wrap_th("UTD concept")
+                        header = header + wrap_th("Label")
+                        header = wrap_tr(header)
+
+                        utd_table = wrap_table(header + row_data)
+                        md_section += f"### UTD concepten\n{utd_table}\n"
+
                     # start of kernregistratie
                     table_data = ""
                     row_data = ""
