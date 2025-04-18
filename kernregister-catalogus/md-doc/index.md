@@ -17,7 +17,7 @@ has_toc: false
 
 
 ## Introductie
-Deze documentatie bevat de RWS OTL uitgebreid met de BOM-R en de kernregistraties.
+Deze documentatie bevat de RWS OTL en UTD.
 
 ## Tijdigheid
 De informatie die hier getoond wordt is de meest recente officiele documentatie, welke bij elk pull request op de OTL master bijgewerkt wordt. 
@@ -25,15 +25,8 @@ De informatie die hier getoond wordt is de meest recente officiele documentatie,
 ## OTL-concepten
 Klik links in het navigatiemenu op ['OTL-concepten (alfabetisch)'](otl-list.html) om een alfabetisch overzicht van OTL-concepten te zien.
 
-## BOM-R-elementen
-Klik links in het navigatiemenu op ['BOM-R-elementen (alfabetisch)'](bomr-list.html) om een alfabetisch overzicht van BOM-R-elementen te zien.
-
 ## UTD-concepten
 ['UTD-concepten'](utd-list.html)
-
-## Kernregistraties
-Klik links in het navigatiemenu op ['Kernregistraties'](kr-list.html) om een overzicht van Kernregistraties te zien.
-
 
 ## Feedback
 We ontvangen graag feedback. Maak een issue aan op [GitHub](https://github.com/gjaaf/rws-otl) als u opmerkingen heeft.
