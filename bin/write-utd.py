@@ -2,7 +2,7 @@
 
 # Verwerk UTD tot een documentatie in de vorm van een set Markdown-bestanden.
 
-from rdflib import ConjunctiveGraph
+from rdflib import ConjunctiveGraph, RDF
 from urllib.parse import quote, unquote
 import time
 import argparse
@@ -33,15 +33,6 @@ def main():
     print("Named Graphs in dataset:")
     for ctx in graph.contexts():
         print(ctx.identifier)
-        
-    # top_concepten_graaf_kennismodel = """
-    # SELECT (COUNT(*) AS ?count) WHERE { 
-    #     GRAPH <https://data.rws.nl/def/utd/graaf-kennismodel> { 
-    #         ?s skos:prefLabel ?o .
-    #         FILTER CONTAINS(STR(?o), " | - , - | - | -")
-    #     }  
-    # } LIMIT 50
-    # """
 
     unieke_concepten_graaf_kennismodel = """
     SELECT ?resource ?label ?broader WHERE { 
@@ -62,6 +53,53 @@ def main():
             "broader": row["broader"],
         })
 
+
+    # Add "heeftElement" to the UTD concepts
+    utd_heeft_element_query = """
+    SELECT ?resource ?heeftElement
+    WHERE {
+        GRAPH <https://data.rws.nl/def/utd/graaf-kennismodel> {  
+            ?resource utd:heeftElement ?heeftElement .
+        }
+    }
+    ORDER BY ?resource
+    """
+
+    for row in graph.query(utd_heeft_element_query):
+        resource = row["resource"]
+        element = row["heeftElement"]
+
+        for utd_concept in utd_concepts:
+            if utd_concept["resource"] == resource:
+                utd_concept.setdefault("hasParts", []).append(element)
+                break
+
+    # Add "heeftEenElement" to the UTD concepts
+    utd_heeft_een_element_query = """
+    SELECT ?resource ?heeftEenElement
+    WHERE {
+        GRAPH <https://data.rws.nl/def/utd/graaf-kennismodel> {
+            ?resource utd:heeftEenElement ?heeftEenElement .
+        }
+    }
+    ORDER BY ?resource
+    """
+
+    for row in graph.query(utd_heeft_een_element_query):
+        resource = row["resource"]
+        element = row["heeftEenElement"]
+
+        # walk trough heeftEenElement (a BlindNode) to extract all present elements
+        current = element
+        while current and current != RDF.nil:
+            first = graph.value(subject=current, predicate=RDF.first)
+            if first:
+                for utd_concept in utd_concepts:
+                    if utd_concept["resource"] == resource:
+                        utd_concept.setdefault("hasParts", []).append(first)
+                        break
+            current = graph.value(subject=current, predicate=RDF.rest)
+
     with open(
         f'{args["root"]}/kernregister-catalogus/md-doc/utd-list.md', "w"
     ) as md_otl_list:
@@ -79,6 +117,15 @@ def main():
             md_otl_list.write(table_head)
             md_otl_list.write(f"<tr>\n<td>Resource</td>\n<td>{concept['resource']}</td>\n</tr>\n")
             md_otl_list.write(f"<tr>\n<td>Broader Transitive</td>\n<td>{concept['broader']}</td>\n</tr>\n")
+            md_otl_list.write("</table>")
+
+            md_otl_list.write("<table>\n")
+            md_otl_list.write("<tr> \n <th>Item</th> \n </tr>\n")
+            # write hasParts to the table
+            if "hasParts" in concept:
+                for hasPart in concept["hasParts"]:
+                    md_otl_list.write(f"<tr>\n<td>{hasPart}</td>\n</tr>\n")
+
             md_otl_list.write("</table>")
 
 
