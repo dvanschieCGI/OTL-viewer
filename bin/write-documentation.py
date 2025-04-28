@@ -19,8 +19,8 @@ def main():
 
     if args["shortened"]:
         files = [
-            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl/graaf-kennismodel.trig',
-            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl/graaf-informatiemodel.trig',
+            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl25.1/graaf-kennismodel.trig',
+            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl25.1/graaf-informatiemodel.trig',
             f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataservice.trig',
             f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataset.trig',
             f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-linkset.trig',
