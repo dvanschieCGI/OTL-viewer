@@ -121,6 +121,7 @@ def main():
 
             # write hasParts to the table (if present)
             if "hasParts" in concept:
+                md_otl_list.write(f"\n<h3>Heeft onderdeel</h3>\n")
                 md_otl_list.write("<table>\n")
                 md_otl_list.write("<tr> \n <th>Heeft onderdeel</th> \n </tr>\n")
 
