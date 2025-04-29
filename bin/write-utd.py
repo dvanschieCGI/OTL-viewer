@@ -119,14 +119,15 @@ def main():
             md_otl_list.write(f"<tr>\n<td>Broader Transitive</td>\n<td>{concept['broader']}</td>\n</tr>\n")
             md_otl_list.write("</table>")
 
-            md_otl_list.write("<table>\n")
-            md_otl_list.write("<tr> \n <th>Item</th> \n </tr>\n")
-            # write hasParts to the table
+            # write hasParts to the table (if present)
             if "hasParts" in concept:
+                md_otl_list.write("<table>\n")
+                md_otl_list.write("<tr> \n <th>Heeft onderdeel</th> \n </tr>\n")
+
                 for hasPart in concept["hasParts"]:
                     md_otl_list.write(f"<tr>\n<td>{hasPart}</td>\n</tr>\n")
 
-            md_otl_list.write("</table>")
+                md_otl_list.write("</table>")
 
 
 def parse_args():
