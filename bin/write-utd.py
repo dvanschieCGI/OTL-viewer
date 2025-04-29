@@ -41,7 +41,7 @@ def main():
                     skos:prefLabel ?label ;
                     skos:broaderTransitive ?broader .
         }  
-    } ORDER BY ?label
+    } ORDER BY ?label LIMIT 10
     """
 
     utd_concepts = []
