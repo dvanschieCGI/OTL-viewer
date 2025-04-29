@@ -111,7 +111,7 @@ def main():
         table_head = "<tr> \n <th>Item</th> \n <th>Waarde</th> \n </tr>\n"
 
         for concept in utd_concepts:
-            md_otl_list.write(f"\n<h2>{concept['label']}</h2>\n")
+            md_otl_list.write(f"\n## {concept['label']}\n")
             
             md_otl_list.write("<table>\n")
             md_otl_list.write(table_head)
@@ -121,7 +121,7 @@ def main():
 
             # write hasParts to the table (if present)
             if "hasParts" in concept:
-                md_otl_list.write(f"\n<h3>Heeft onderdeel</h3>\n")
+                md_otl_list.write(f"\n### Heeft onderdeel\n")
                 md_otl_list.write("<table>\n")
                 md_otl_list.write("<tr> \n <th>Heeft onderdeel</th> \n </tr>\n")
 
