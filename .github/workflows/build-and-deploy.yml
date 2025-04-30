@@ -22,11 +22,6 @@ jobs:
           token: ${{ secrets.RWS_TOKEN }}
       - name: Parse mapping rules
         run: python3 bin/parse-mappings.py airbim-mappingrule-generator/mappingregels mapping.json
-      - name: Upload JSON output
-        uses: actions/upload-artifact@v4
-        with:
-          name: mapping-rules
-          path: mapping.json
       - name: Generate documentation
         run: python3 bin/write-documentation.py .
       - name: Generate UTD
