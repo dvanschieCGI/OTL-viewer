@@ -114,7 +114,7 @@ def main():
         table_head = "<tr> \n <th>Item</th> \n <th>Waarde</th> \n </tr>\n"
 
         for concept in utd_concepts:
-            md_otl_list.write(f"\n ## {concept['label']}\n")
+            md_otl_list.write(f"\n## {concept['label']}\n")
             
             md_otl_list.write("<table>\n")
             md_otl_list.write(table_head)
