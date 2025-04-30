@@ -131,7 +131,7 @@ def main():
                 for hasPart in concept["hasParts"]:
                     md_otl_list.write(f"<tr>\n<td>{hasPart['element']}</td>\n <td>{hasPart['label']}</td></tr>\n")
 
-                md_otl_list.write("</table>")
+                md_otl_list.write("</table>\n")
 
 
 def parse_args():
