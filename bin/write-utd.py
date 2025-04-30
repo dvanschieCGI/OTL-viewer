@@ -114,19 +114,19 @@ def main():
         table_head = "<tr> \n <th>Item</th> \n <th>Waarde</th> \n </tr>\n"
 
         for concept in utd_concepts:
-            md_otl_list.write(f"\n## {concept['label']}\n")
+            md_otl_list.write(f"\n ## {concept['label']}\n")
             
             md_otl_list.write("<table>\n")
             md_otl_list.write(table_head)
             md_otl_list.write(f"<tr>\n<td>Resource</td>\n<td>{concept['resource']}</td>\n</tr>\n")
             md_otl_list.write(f"<tr>\n<td>Broader Transitive</td>\n<td>{concept['broader']}</td>\n</tr>\n")
-            md_otl_list.write("</table>")
+            md_otl_list.write("</table>\n")
 
             # write hasParts to the table (if present)
             if "hasParts" in concept:
                 md_otl_list.write(f"\n### Heeft onderdeel\n")
                 md_otl_list.write("<table>\n")
-                md_otl_list.write("<tr> \n <th>Resource</th> \n <th>Label<th> \n </tr>\n")
+                md_otl_list.write("<tr> \n <th>Resource</th> \n <th>Label</th> \n </tr>\n")
 
                 for hasPart in concept["hasParts"]:
                     md_otl_list.write(f"<tr>\n<td>{hasPart['element']}</td>\n <td>{hasPart['label']}</td></tr>\n")
