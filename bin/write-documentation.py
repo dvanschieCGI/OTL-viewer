@@ -169,10 +169,6 @@ def main():
         patroon_results_array.append(result_dict)
     patroon_results_sorted = sorted(patroon_results_array, key=lambda x: (x["res"], x["resource"]))
 
-    # print("!" + str(patroon_results_sorted[0]))
-    # import sys
-    # sys.exit(0)
-
     lineNo = 0
     for entry in patroon_results_sorted:
         lineNo += 1
@@ -259,11 +255,14 @@ def main():
                             if not pattern["datatype"]:
                                 datatype = ""
                             else:
-                                datatype = pattern["datatype"]
+                                datatype = remove_uri_prefix(pattern["datatype"])
+
+                            nodekind = remove_uri_prefix(pattern["nodekind"])
+
                             patroon_data = patroon_data + wrap_td(unquote(quote(datatype)))
                             patroon_data = patroon_data + wrap_td(pattern["minexclusive"])
                             patroon_data = patroon_data + wrap_td(pattern["maxexclusive"])
-                            patroon_data = patroon_data + wrap_td(unquote(quote(pattern["nodekind"])))
+                            patroon_data = patroon_data + wrap_td(unquote(quote(nodekind)))
                             patroon_data = patroon_data + wrap_td("")  # Keuzelijst
 
                             try:
@@ -404,6 +403,11 @@ def get_first_initial_last_word(input_str):
 def get_last_word(input_str):
     last_word = input_str.strip("/").split("/")[-1]
     return last_word
+
+
+def remove_uri_prefix(uri_str):
+    # Split the URI on the last occurence of "/" and only keep the part after it
+    return uri_str.rsplit("/", 1)[1]
 
 
 def wrap_section(wrapstr):
