@@ -135,20 +135,21 @@ def main():
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX sh: <http://www.w3.org/ns/shacl#>
-        SELECT ?resource ?resourcedef ?res ?datatype ?description ?name ?nodekind ?path ?minexclusive ?maxexclusive
-        WHERE {
+    SELECT ?resource ?resourcedef ?res ?datatype ?description ?name ?nodekind ?path ?minexclusive ?maxexclusive
+    WHERE {
         GRAPH <https://data.rws.nl/def/otl/graaf-informatiemodel>  {
-    ?res a sh:NodeShape .
-    ?res sh:description ?resourcedef .
-    ?res sh:property ?resource .
-        ?resource a sh:PropertyShape .
-    OPTIONAL { ?resource sh:datatype ?datatype .}
-    OPTIONAL { ?resource sh:description ?description .}
-    OPTIONAL { ?resource sh:name ?name .}
-    OPTIONAL { ?resource sh:nodeKind ?nodekind .}
-    OPTIONAL { ?resource sh:maxExclusive ?minexclusive .}
-    OPTIONAL { ?resource sh:minExclusive ?maxexclusive .}
-            } }
+            ?res a sh:NodeShape .
+            ?res sh:description ?resourcedef .
+            ?res sh:property ?resource .
+                ?resource a sh:PropertyShape .
+            OPTIONAL { ?resource sh:datatype ?datatype .}
+            OPTIONAL { ?resource sh:description ?description .}
+            OPTIONAL { ?resource sh:name ?name .}
+            OPTIONAL { ?resource sh:nodeKind ?nodekind .}
+            OPTIONAL { ?resource sh:maxExclusive ?minexclusive .}
+            OPTIONAL { ?resource sh:minExclusive ?maxexclusive .}
+        } 
+    }
     """
 
     patroon_results_array = []
@@ -159,7 +160,7 @@ def main():
             "resource": row["resource"].toPython(),
             "datatype": row["datatype"],
             "description": row["description"],
-            "name": row["name"],
+            "name": row["name"].toPython(),
             "nodekind": row["nodekind"].toPython(),
             "minexclusive": row["minexclusive"],
             "maxexclusive": row["maxexclusive"],
@@ -267,7 +268,7 @@ def main():
 
                             try:
                                 bms_data = []
-                                bms_props = mapping_data[str(entry_str)][pattern["resource"][36:]]
+                                bms_props = mapping_data[str(entry_str)][pattern["name"]]
                                 for bms in bms_props:
                                     name = bms_props[bms]['name-bms']
                                     if name == "ultimo":
