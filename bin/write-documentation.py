@@ -12,41 +12,17 @@ import sys
 
 def main():
     """
-    Verwerk BOM, OTL en kernregistratie tot een documentatie in de vorm van een set Markdown-bestanden.
+    Verwerk OTL tot een documentatie in de vorm van een set Markdown-bestanden.
     """
     start_time = time.time()
     args = parse_args()
 
-    if args["shortened"]:
-        files = [
-            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl/graaf-kennismodel.trig',
-            f'{args["root"]}/../rws-otl-shortened/ontology/def/otl/graaf-informatiemodel.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataservice.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-linkset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/creator.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/publisher.trig',
-            f'{args["root"]}/ontology/def/linksets/CIMObject-otl.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-dataservice.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-dataset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-linkset.trig',
-        ]
-    else:
-        files = [
-            f'{args["root"]}/ontology/def/otl/graaf-kennismodel.trig',
-            f'{args["root"]}/ontology/def/linksets33.1/graaf-otl-utd-linkset.trig',
-            f'{args["root"]}/ontology/def/utd/graaf-kennismodel-utd.trig',
-            f'{args["root"]}/ontology/def/otl/graaf-informatiemodel.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataservice.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-dataset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/belanghebbende-linkset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/creator.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/publisher.trig',
-            f'{args["root"]}/ontology/def/linksets/CIMObject-otl.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-dataservice.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-dataset.trig',
-            f'{args["root"]}/kernregister-catalogus/kr/netwerkschakel-linkset.trig',
-        ]
+    files = [
+        f'{args["root"]}/ontology/def/otl/graaf-kennismodel.trig',
+        f'{args["root"]}/ontology/def/linksets/graaf-otl-utd-linkset.trig',
+        f'{args["root"]}/ontology/def/utd/graaf-kennismodel-utd.trig',
+        f'{args["root"]}/ontology/def/otl/graaf-informatiemodel.trig',
+    ]
 
     print("Reading")
     print("...Initials")
@@ -344,9 +320,6 @@ def parse_args():
     )
     parser.add_argument(
         "-v", "--verbose", help="Geef extra output ter ondersteuning van ontwikkelen of debuggen.", action="store_true"
-    )
-    parser.add_argument(
-        "-s", "--shortened", help="Gebruik een ingekort kennis- en informatiemodel.", action="store_true"
     )
     args = parser.parse_args()
 
