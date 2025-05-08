@@ -325,8 +325,7 @@ def parse_args():
 
     return {
         "root": args.root,
-        "verbose": args.verbose,
-        "shortened": args.shortened,
+        "verbose": args.verbose
     }
 
 
