@@ -1,6 +1,6 @@
 ---
-title: RWS Kernregistraties
-description: Dit is de documentatie voor de RWS Kernregistraties op basis van de RWS OTL.
+title: RWS Informatieconcepten
+description: Dit is de documentatie voor de RWS Informatieconcepten op basis van de RWS OTL.
 nav_order: 1
 has_children: true
 has_toc: false

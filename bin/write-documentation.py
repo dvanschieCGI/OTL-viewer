@@ -158,7 +158,7 @@ def main():
     ) as md_otl_list:
 
         # Voorbereiding otl-list.md
-        md_otl_list.write("---\ntitle: OTL-concepten (alfabetisch)\nparent: RWS Kernregistraties\nnav_order: 1\n---\n")
+        md_otl_list.write("---\ntitle: OTL-concepten (alfabetisch)\nparent: RWS Informatieconcepten\nnav_order: 1\n---\n")
         md_otl_list.write(
             "\n## Introductie\nDeze pagina bevat een alfabetisch overzicht van alle OTL-concepten.\n## Alfabetisch overzicht\n"
         )

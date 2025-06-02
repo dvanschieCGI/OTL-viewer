@@ -106,7 +106,7 @@ def main():
     with open(
         f'{args["root"]}/kernregister-catalogus/md-doc/utd-list.md', "w"
     ) as md_otl_list:
-        md_otl_list.write("---\ntitle: UTD-concepten (alfabetisch)\nparent: RWS Kernregistraties\nnav_order: 1\n---\n")
+        md_otl_list.write("---\ntitle: UTD-concepten (alfabetisch)\nparent: RWS Informatieconcepten\nnav_order: 1\n---\n")
         md_otl_list.write(
             "\n## Introductie\nDeze pagina bevat een overzicht van alle UTD-concepten."
         )
